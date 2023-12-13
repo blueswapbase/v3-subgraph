@@ -6,16 +6,30 @@ import { exponentToBigDecimal, safeDiv } from '../utils/index'
 
 const WETH_ADDRESS = '0x4200000000000000000000000000000000000006'
 const WETH_USDC_05_POOL = '0x4c36388be6f416a29c8d8eee81c771ce6be14b18'
+const BLUE_ADDRESS = '0x30136B90e532141FeD006c61105cff3668b5c774'
+const NAMI_ADDRESS = '0x007c575E8c569F3F4253016B7038bc9445A13546'
+const DAI_ADDRESS = '0x5c7e299cf531eb66f2a1df637d37abb78e6200c7'
+const TOSHI_ADDRESS = '0x8544fe9d190fd7ec52860abbf45088e81ee24a8c'
+const SUSHI_TOKEN = '0x81ab7e0d570b01411fcc4afd3d50ec8c241cb74b'
+const DAI2_ADDRESS = '0x50c5725949a6f0c72e6c4a641f24049a917db0cb'
+
 
 // token where amounts should contribute to tracked volume and liquidity
 // usually tokens that many tokens are paired with s
 export let WHITELIST_TOKENS: string[] = [
   WETH_ADDRESS, // WETH
-  '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e', // USDC
+  '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // USDC
+  BLUE_ADDRESS, // BLUE
+  NAMI_ADDRESS,
+  DAI_ADDRESS,
+  DAI2_ADDRESS,
+  TOSHI_ADDRESS,
+  SUSHI_TOKEN
+
 ]
 
 let STABLE_COINS: string[] = [
-  '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e', // USDC
+  '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // USDC,
 ]
 
 let MINIMUM_ETH_LOCKED = BigDecimal.fromString('1')

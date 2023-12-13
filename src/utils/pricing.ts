@@ -12,24 +12,31 @@ const DAI_ADDRESS = '0x5c7e299cf531eb66f2a1df637d37abb78e6200c7'
 const TOSHI_ADDRESS = '0x8544fe9d190fd7ec52860abbf45088e81ee24a8c'
 const SUSHI_TOKEN = '0x81ab7e0d570b01411fcc4afd3d50ec8c241cb74b'
 const DAI2_ADDRESS = '0x50c5725949a6f0c72e6c4a641f24049a917db0cb'
+const USDbC = '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA'
+const USDC = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
 
 
 // token where amounts should contribute to tracked volume and liquidity
 // usually tokens that many tokens are paired with s
 export let WHITELIST_TOKENS: string[] = [
   WETH_ADDRESS, // WETH
-  '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // USDC
+  USDC, // USDC
+  USDbC, // USDbC
   BLUE_ADDRESS, // BLUE
-  NAMI_ADDRESS,
-  DAI_ADDRESS,
-  DAI2_ADDRESS,
-  TOSHI_ADDRESS,
-  SUSHI_TOKEN
+  NAMI_ADDRESS, // NAMI
+  DAI_ADDRESS, // DAI
+  DAI2_ADDRESS, // DAI2
+  TOSHI_ADDRESS, // TOSHI
+  SUSHI_TOKEN // SUSHI
 
 ]
 
 let STABLE_COINS: string[] = [
-  '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // USDC,
+  DAI_ADDRESS, // DAI
+  DAI2_ADDRESS, // DAI2
+  USDC,
+  USDbC
+
 ]
 
 let MINIMUM_ETH_LOCKED = BigDecimal.fromString('1')

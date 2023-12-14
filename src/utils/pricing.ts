@@ -5,7 +5,7 @@ import { BigDecimal, BigInt } from '@graphprotocol/graph-ts'
 import { exponentToBigDecimal, safeDiv } from '../utils/index'
 
 const WETH_ADDRESS = '0x4200000000000000000000000000000000000006'
-const WETH_USDC_05_POOL = '0x4c36388be6f416a29c8d8eee81c771ce6be14b18'
+const WETH_USDC = '0x6ecf6b2ca5b1681412839d9b72f43ff87acd3786'
 const BLUE_ADDRESS = '0x30136B90e532141FeD006c61105cff3668b5c774'
 const NAMI_ADDRESS = '0x007c575E8c569F3F4253016B7038bc9445A13546'
 const DAI_ADDRESS = '0x5c7e299cf531eb66f2a1df637d37abb78e6200c7'
@@ -56,7 +56,7 @@ export function sqrtPriceX96ToTokenPrices(sqrtPriceX96: BigInt, token0: Token, t
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
-  let usdcPool = Pool.load(WETH_USDC_05_POOL)
+  let usdcPool = Pool.load(WETH_USDC)
   if (usdcPool !== null) {
     return usdcPool.token1Price
   } else {

@@ -5,17 +5,33 @@ import { BigDecimal, BigInt } from '@graphprotocol/graph-ts'
 import { exponentToBigDecimal, safeDiv } from '../utils/index'
 
 const WETH_ADDRESS = '0x4200000000000000000000000000000000000006'
-const WETH_USDC_05_POOL = '0x4c36388be6f416a29c8d8eee81c771ce6be14b18'
+const WETH_USDC_05_POOL = '0xd0b53d9277642d899df5c87a3966a349a798f224'
+const USDC_ADDRESS = '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913'
+const DAI_ADDRESS = '0x5c7e299cf531eb66f2a1df637d37abb78e6200c7'
+const TOSHI_ADDRESS = '0x8544fe9d190fd7ec52860abbf45088e81ee24a8c'
+const SUSHI_TOKEN = '0x81ab7e0d570b01411fcc4afd3d50ec8c241cb74b'
+const DAI2_ADDRESS = '0x50c5725949a6f0c72e6c4a641f24049a917db0cb'
+const BLUE_ADDRESS = '0x30136B90e532141FeD006c61105cff3668b5c774'
+const USDBC_ADDRESS = '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA'
 
 // token where amounts should contribute to tracked volume and liquidity
 // usually tokens that many tokens are paired with s
 export let WHITELIST_TOKENS: string[] = [
-  WETH_ADDRESS, // WETH
-  '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e', // USDC
+  WETH_ADDRESS,
+  USDC_ADDRESS,
+  DAI_ADDRESS,
+  TOSHI_ADDRESS,
+  SUSHI_TOKEN,
+  DAI2_ADDRESS,
+  BLUE_ADDRESS,
+  USDBC_ADDRESS,  
 ]
 
 let STABLE_COINS: string[] = [
-  '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e', // USDC
+  USDC_ADDRESS, // USDC
+  DAI_ADDRESS,
+  DAI2_ADDRESS,
+  USDBC_ADDRESS
 ]
 
 let MINIMUM_ETH_LOCKED = BigDecimal.fromString('1')

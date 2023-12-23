@@ -24,17 +24,17 @@ import { createTick, feeTierToTickSpacing } from '../utils/tick'
 
 export function handleInitialize(event: Initialize): void {
   // update pool sqrt price and tick
-  let pool = Pool.load(event.address.toHexString())
+  let pool = Pool.load(event.address.toHexString()) as Pool
   pool.sqrtPrice = event.params.sqrtPriceX96
   pool.tick = BigInt.fromI32(event.params.tick)
   pool.save()
   
   // update token prices
-  let token0 = Token.load(pool.token0)
-  let token1 = Token.load(pool.token1)
+  let token0 = Token.load(pool.token0) as Token
+  let token1 = Token.load(pool.token1) as Token
 
   // update ETH price now that prices could have changed
-  let bundle = Bundle.load('1')
+  let bundle = Bundle.load('1') as Bundle
   bundle.ethPriceUSD = getEthPriceInUSD()
   bundle.save()
 
@@ -49,13 +49,13 @@ export function handleInitialize(event: Initialize): void {
 }
 
 export function handleMint(event: MintEvent): void {
-  let bundle = Bundle.load('1')
+  let bundle = Bundle.load('1') as Bundle
   let poolAddress = event.address.toHexString()
-  let pool = Pool.load(poolAddress)
-  let factory = Factory.load(FACTORY_ADDRESS)
+  let pool = Pool.load(poolAddress) as Pool
+  let factory = Factory.load(FACTORY_ADDRESS) as Factory
 
-  let token0 = Token.load(pool.token0)
-  let token1 = Token.load(pool.token1)
+  let token0 = Token.load(pool.token0) as Token
+  let token1 = Token.load(pool.token1) as Token
   let amount0 = convertTokenToDecimal(event.params.amount0, token0.decimals)
   let amount1 = convertTokenToDecimal(event.params.amount1, token1.decimals)
 
@@ -168,13 +168,13 @@ export function handleMint(event: MintEvent): void {
 }
 
 export function handleBurn(event: BurnEvent): void {
-  let bundle = Bundle.load('1')
+  let bundle = Bundle.load('1') as Bundle
   let poolAddress = event.address.toHexString()
-  let pool = Pool.load(poolAddress)
-  let factory = Factory.load(FACTORY_ADDRESS)
+  let pool = Pool.load(poolAddress) as Pool
+  let factory = Factory.load(FACTORY_ADDRESS) as Factory
 
-  let token0 = Token.load(pool.token0)
-  let token1 = Token.load(pool.token1)
+  let token0 = Token.load(pool.token0) as Token
+  let token1 = Token.load(pool.token1) as Token
   let amount0 = convertTokenToDecimal(event.params.amount0, token0.decimals)
   let amount1 = convertTokenToDecimal(event.params.amount1, token1.decimals)
 
@@ -268,17 +268,17 @@ export function handleBurn(event: BurnEvent): void {
 }
 
 export function handleSwap(event: SwapEvent): void {
-  let bundle = Bundle.load('1')
-  let factory = Factory.load(FACTORY_ADDRESS)
-  let pool = Pool.load(event.address.toHexString())
+  let bundle = Bundle.load('1') as Bundle
+  let factory = Factory.load(FACTORY_ADDRESS) as Factory
+  let pool = Pool.load(event.address.toHexString()) as Pool
 
   // hot fix for bad pricing
   if (pool.id == '0x9663f2ca0454accad3e094448ea6f77443880454') {
     return
   }
 
-  let token0 = Token.load(pool.token0)
-  let token1 = Token.load(pool.token1)
+  let token0 = Token.load(pool.token0) as Token
+  let token1 = Token.load(pool.token1) as Token
 
   let oldTick = pool.tick!
 
@@ -302,11 +302,9 @@ export function handleSwap(event: SwapEvent): void {
   let amount1USD = amount1ETH.times(bundle.ethPriceUSD)
 
   // get amount that should be tracked only - div 2 because cant count both input and output as volume
-  let amountTotalUSDTracked = getTrackedAmountUSD(amount0Abs, token0 as Token, amount1Abs, token1 as Token).div(
-    BigDecimal.fromString('2')
-  )
+  let amountTotalUSDTracked = safeDiv(getTrackedAmountUSD(amount0Abs, token0, amount1Abs, token1), BigDecimal.fromString('2'))
   let amountTotalETHTracked = safeDiv(amountTotalUSDTracked, bundle.ethPriceUSD)
-  let amountTotalUSDUntracked = amount0USD.plus(amount1USD).div(BigDecimal.fromString('2'))
+  let amountTotalUSDUntracked = safeDiv(amount0USD.plus(amount1USD), BigDecimal.fromString('2'))
 
   let feesETH = amountTotalETHTracked.times(pool.feeTier.toBigDecimal()).div(BigDecimal.fromString('1000000'))
   let feesUSD = amountTotalUSDTracked.times(pool.feeTier.toBigDecimal()).div(BigDecimal.fromString('1000000'))
